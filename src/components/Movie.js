@@ -6,8 +6,8 @@ import { Col } from 'reactstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faHeart, faVideo, faStar } from '@fortawesome/free-solid-svg-icons'
 
-const Movies = (props) => {
 
+const Movies = (props) => {
   var heart = {
     cursor: 'pointer',
     color: 'grey',
@@ -61,31 +61,39 @@ const Movies = (props) => {
 
   // Rating stars
   const [rating, setRating] = useState(0)
+  const [vote, setVote] = useState(props.globalCountRating)
+  const [newScore, setNewSore] = useState(props.globalRating)
   var rateClick = (value) => {
     if (value == 'up') {
       if (rating < 10) {
         setRating(rating+1)
+        setVote(props.globalCountRating+1)
+        setNewSore(Math.round(((props.globalRating * props.globalCountRating) + rating) / vote))
+        console.log(newScore)
       }
     } else if (value == 'down') {
       if (rating > 0) {
         setRating(rating-1)
+        setVote(props.globalCountRating+1)
+        setNewSore(Math.round(((props.globalRating * props.globalCountRating) + rating) / vote))
+        console.log(newScore)
       }
     }
   }
 
+
   const rateStars = []
   for (var i=0; i<10; i++) {
     if (i>= rating) {
-      rateStars.push(<FontAwesomeIcon icon={faStar} style={starIcon} />)
+      rateStars.push(<FontAwesomeIcon icon={faStar} style={starIcon} data-key={i} />)
     } else {
-      rateStars.push(<FontAwesomeIcon  style={{color:'gold'}} icon={faStar} />)
+      rateStars.push(<FontAwesomeIcon  style={{color:'gold'}} icon={faStar} data-key={i} />)
     }
   }
 
-
   const globalCount = []
   for (var i=0; i<10; i++) {
-    if (i>= props.globalCountRating) {
+    if (i>= newScore) {
       globalCount.push(<FontAwesomeIcon icon={faStar} style={starIcon} />)
     } else {
       globalCount.push(<FontAwesomeIcon  style={{color:'gold'}} icon={faStar} />)
@@ -112,8 +120,8 @@ const Movies = (props) => {
               <Badge className="ml-1" color="secondary" onClick={ () => rateClick('up')} >+1</Badge>
             </p>
             <p className="mb-0">
-              Avis global {globalCount} ({props.globalCountRating})
-              </p>
+            Avis global {globalCount} ({vote})
+            </p>
             <p>{props.movieDesc}</p>
         </CardText>
       </CardBody>
