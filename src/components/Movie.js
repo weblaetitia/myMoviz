@@ -10,36 +10,61 @@ const Movies = (props) => {
 
   var heart = {
     cursor: 'pointer',
-    color: 'lightgray',
+    color: 'grey',
     transitionDuration: '.5s',
     '&:hover': {
       color: 'pink'
     }
   }
 
-  const [like, setLike] = useState(false)
-
-  var clickLike = () => {
-    if (like === false) {
-      setLike(true)
-      console.log('valeur passé à true')
-    } else {
-      setLike(false)
-      console.log('valeur passé à false')
+  var movieCamera = {
+    cursor: 'pointer',
+    color: 'grey',
+    transitionDuration: '.5s',
+    '&:hover': {
+      color: 'lightgoldenrodyellow'
     }
   }
 
-  if (like === true) {
-    heart.color = 'red'
-  } else if (like === false) {
-    heart.color = 'lightgrey'
+  var starIcon = {
+    cursor: 'pointer',
+    color: 'grey',
+    transitionDuration: '.5s',
+    '&:hover': {
+      color: 'lightgoldenrodyellow'
+    }
   }
+
+  // Like btn
+  const [like, setLike] = useState(false)
+  var clickLike = () => {
+    if (like === false) {
+      setLike(true)
+    } else {
+      setLike(false)
+    }
+  }
+  if (like === true) {
+    heart.color = '#e74c3c'
+  } else if (like === false) {
+    heart.color = 'grey'
+  }
+
+  // movie icon
+  const [watch, setWatch ] = useState(0)
+  var clickWatch = () => {
+    setWatch(watch+1)
+  }
+  if (watch > 0) {
+    movieCamera.color = 'gold'
+  }
+
 
 
   const globalCount = []
   for (var i=0; i<10; i++) {
     if (i>= props.globalCountRating) {
-      globalCount.push(<FontAwesomeIcon icon={faStar} />)
+      globalCount.push(<FontAwesomeIcon icon={faStar} style={starIcon} />)
     } else {
       globalCount.push(<FontAwesomeIcon  style={{color:'gold'}} icon={faStar} />)
     }
@@ -56,11 +81,11 @@ const Movies = (props) => {
               Like <FontAwesomeIcon icon={faHeart} style={heart} onClick={ () => clickLike() }/>
             </p>
             <p className="mb-0">
-              Nombre de vues <FontAwesomeIcon icon={faVideo} />
-              <Badge className="ml-2" color="secondary">0</Badge>
+              Nombre de vues <FontAwesomeIcon icon={faVideo} style={movieCamera} onClick={ () => clickWatch() } />
+              <Badge className="ml-2" color="secondary">{watch}</Badge>
             </p>
             <p className="mb-0">
-              Mon avis <FontAwesomeIcon icon={faStar} />
+              Mon avis <FontAwesomeIcon icon={faStar} style={starIcon} />
               <Badge className="ml-2" color="secondary">-1</Badge><Badge className="ml-2" color="secondary">+1</Badge>
             </p>
             <p className="mb-0">
