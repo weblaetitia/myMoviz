@@ -63,15 +63,16 @@ const Movies = (props) => {
   const [rating, setRating] = useState(0)
   const [vote, setVote] = useState(props.globalCountRating)
   const [newScore, setNewSore] = useState(props.globalRating)
+
   var rateClick = (value) => {
-    if (value == 'up') {
+    if (value === 'up') {
       if (rating < 10) {
         setRating(rating+1)
         setVote(props.globalCountRating+1)
         setNewSore(Math.round(((props.globalRating * props.globalCountRating) + rating) / vote))
         console.log(newScore)
       }
-    } else if (value == 'down') {
+    } else if (value === 'down') {
       if (rating > 0) {
         setRating(rating-1)
         setVote(props.globalCountRating+1)
@@ -80,14 +81,21 @@ const Movies = (props) => {
       }
     }
   }
-
+  const rateTwo = (note) => {
+    setRating(note)
+    console.log(note)
+    setVote(props.globalCountRating+1)
+    setNewSore(Math.round(((props.globalRating * props.globalCountRating) + rating) / vote))
+    console.log(newScore)
+  }
 
   const rateStars = []
-  for (var i=0; i<10; i++) {
+  for (let i=0; i<10; i++) {
+    const num = i+1
     if (i>= rating) {
-      rateStars.push(<FontAwesomeIcon icon={faStar} style={starIcon} data-key={i} />)
+      rateStars.push(<FontAwesomeIcon icon={faStar} style={starIcon} data-key={num} onClick={ () => rateTwo(num) } />)
     } else {
-      rateStars.push(<FontAwesomeIcon  style={{color:'gold'}} icon={faStar} data-key={i} />)
+      rateStars.push(<FontAwesomeIcon  style={{color:'gold'}} icon={faStar} data-key={num}  onClick={ () => rateTwo(num) } />)
     }
   }
 
