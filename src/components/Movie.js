@@ -8,31 +8,22 @@ import { faHeart, faVideo, faStar } from '@fortawesome/free-solid-svg-icons'
 
 
 const Movies = (props) => {
-  var heart = {
+  
+  var genericStyle =  {
     cursor: 'pointer',
-    color: 'grey',
-    transitionDuration: '.5s',
-    '&:hover': {
-      color: 'pink'
-    }
+    transitionDuration: '.5s' 
+  }
+
+  var heart = {
+    ... genericStyle,
   }
 
   var movieCamera = {
-    cursor: 'pointer',
-    color: 'grey',
-    transitionDuration: '.5s',
-    '&:hover': {
-      color: 'lightgoldenrodyellow'
-    }
+    ... genericStyle,
   }
 
   var starIcon = {
-    cursor: 'pointer',
-    color: 'grey',
-    transitionDuration: '.5s',
-    '&:hover': {
-      color: 'lightgoldenrodyellow'
-    }
+    ... genericStyle,
   }
 
   // Like btn
