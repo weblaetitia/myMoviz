@@ -59,6 +59,28 @@ const Movies = (props) => {
     movieCamera.color = 'gold'
   }
 
+  // Rating stars
+  const [rating, setRating] = useState(0)
+  var rateClick = (value) => {
+    if (value == 'up') {
+      if (rating < 10) {
+        setRating(rating+1)
+      }
+    } else if (value == 'down') {
+      if (rating > 0) {
+        setRating(rating-1)
+      }
+    }
+  }
+
+  const rateStars = []
+  for (var i=0; i<10; i++) {
+    if (i>= rating) {
+      rateStars.push(<FontAwesomeIcon icon={faStar} style={starIcon} />)
+    } else {
+      rateStars.push(<FontAwesomeIcon  style={{color:'gold'}} icon={faStar} />)
+    }
+  }
 
 
   const globalCount = []
@@ -85,8 +107,9 @@ const Movies = (props) => {
               <Badge className="ml-2" color="secondary">{watch}</Badge>
             </p>
             <p className="mb-0">
-              Mon avis <FontAwesomeIcon icon={faStar} style={starIcon} />
-              <Badge className="ml-2" color="secondary">-1</Badge><Badge className="ml-2" color="secondary">+1</Badge>
+              Mon avis {rateStars}
+              <Badge className="ml-1" color="secondary" onClick={ () => rateClick('down')} >-1</Badge>
+              <Badge className="ml-1" color="secondary" onClick={ () => rateClick('up')} >+1</Badge>
             </p>
             <p className="mb-0">
               Avis global {globalCount} ({props.globalCountRating})
