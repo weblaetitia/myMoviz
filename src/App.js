@@ -44,8 +44,8 @@ function App() {
       note: 0,
       vote: 2 }
   ]
-  const movieList = moviesData.map(function(movie) {
-    return <Movies movieName={movie.name} movieDesc={movie.desc} movieImg={movie.img} globalRating={movie.note} globalCountRating={movie.vote} />
+  const movieList = moviesData.map(function(movie, i) {
+    return <Movies key={i}  movieName={movie.name} movieDesc={movie.desc} movieImg={movie.img} globalRating={movie.note} globalCountRating={movie.vote} />
   })
 
   return (
