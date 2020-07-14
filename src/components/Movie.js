@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {Card, CardImg, CardText, CardBody} from 'reactstrap';
 import { Badge } from 'reactstrap';
 import { Col } from 'reactstrap';
@@ -7,6 +7,34 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faHeart, faVideo, faStar } from '@fortawesome/free-solid-svg-icons'
 
 const Movies = (props) => {
+
+  var heart = {
+    cursor: 'pointer',
+    color: 'lightgray',
+    transitionDuration: '.5s',
+    '&:hover': {
+      color: 'pink'
+    }
+  }
+
+  const [like, setLike] = useState(false)
+
+  var clickLike = () => {
+    if (like === false) {
+      setLike(true)
+      console.log('valeur passé à true')
+    } else {
+      setLike(false)
+      console.log('valeur passé à false')
+    }
+  }
+
+  if (like === true) {
+    heart.color = 'red'
+  } else if (like === false) {
+    heart.color = 'lightgrey'
+  }
+
 
   const globalCount = []
   for (var i=0; i<10; i++) {
@@ -24,10 +52,20 @@ const Movies = (props) => {
       <CardBody>
         <CardText>
             <p className="font-weight-bold">{props.movieName}</p>
-            <p className="mb-0">Like <FontAwesomeIcon icon={faHeart} /><Badge className="ml-2" color="secondary">{props.globalRating}</Badge></p>
-            <p className="mb-0">Nombre de vues <FontAwesomeIcon icon={faVideo} /><Badge className="ml-2" color="secondary">0</Badge></p>
-            <p className="mb-0">Mon avis <FontAwesomeIcon icon={faStar} /><Badge className="ml-2" color="secondary">-1</Badge><Badge className="ml-2" color="secondary">+1</Badge></p>
-            <p className="mb-0">Avis global {globalCount} ({props.globalCountRating})</p>
+            <p className="mb-0">
+              Like <FontAwesomeIcon icon={faHeart} style={heart} onClick={ () => clickLike() }/>
+            </p>
+            <p className="mb-0">
+              Nombre de vues <FontAwesomeIcon icon={faVideo} />
+              <Badge className="ml-2" color="secondary">0</Badge>
+            </p>
+            <p className="mb-0">
+              Mon avis <FontAwesomeIcon icon={faStar} />
+              <Badge className="ml-2" color="secondary">-1</Badge><Badge className="ml-2" color="secondary">+1</Badge>
+            </p>
+            <p className="mb-0">
+              Avis global {globalCount} ({props.globalCountRating})
+              </p>
             <p>{props.movieDesc}</p>
         </CardText>
       </CardBody>
