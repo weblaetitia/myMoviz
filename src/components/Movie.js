@@ -1,7 +1,5 @@
 import React, {useState} from 'react';
-import {Card, CardImg, CardText, CardBody} from 'reactstrap';
-import { Badge } from 'reactstrap';
-import { Col } from 'reactstrap';
+import {Card, CardImg, CardText, CardBody, Badge, Col} from 'reactstrap';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faHeart, faVideo, faStar } from '@fortawesome/free-solid-svg-icons'
@@ -31,8 +29,10 @@ const Movies = (props) => {
   var clickLike = () => {
     if (like === false) {
       setLike(true)
+      props.handleClickAddMovieParent(props.movieName)
     } else {
       setLike(false)
+      props.handleClickDeleteMovieParent(props.movieName)
     }
   }
   if (like === true) {

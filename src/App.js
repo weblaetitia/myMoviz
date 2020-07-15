@@ -1,9 +1,9 @@
-import React from 'react'
+import React, {useState} from 'react'
 import './App.css'
 import { Navigation } from './components/Nav'
 import {Movies} from './components/Movie'
 
-import { Container, Row } from 'reactstrap';
+import { Container, Row, ListGroupItem } from 'reactstrap';
 
 
 function App() {
@@ -37,15 +37,31 @@ function App() {
       img: '/img/terminator.jpg',
       note:6.1, vote:1 }
   ]
+  // Whishlist
+  const [wishList, setWishList] = useState([])
 
-  const movieList = moviesData.map(function(movie, i) {
-    return <Movies key={i}  movieName={movie.name} movieDesc={movie.desc} movieImg={movie.img} globalRating={movie.note} globalCountRating={movie.vote} />
+  var handleClickAddMovie = (movie) => {
+      setWishList([...wishList, movie])
+  }
+  var handleClickDeleteMovie = (movie) => {
+    setWishList(wishList.filter( (e) => (e !== movie)))
+  }
+
+  const myWishList = wishList.map( function (movie, i) {
+    return <ListGroupItem movieName={movie}>{movie}</ListGroupItem>
   })
 
+  const movieList = moviesData.map(function(movie, i) {
+    return <Movies key={i} movieName={movie.name} movieDesc={movie.desc} movieImg={movie.img} globalRating={movie.note} globalCountRating={movie.vote} handleClickAddMovieParent={handleClickAddMovie} handleClickDeleteMovieParent={handleClickDeleteMovie} />
+  })
+  var numberWish = wishList.length
+
   return (
+    
    <div>
+     <p className="text-white">{wishList}</p>
      <Container className="mb-4">
-      <Navigation />
+      <Navigation myWishList={myWishList} numberOfMovies={numberWish} />
      </Container>
     
     <Container>
