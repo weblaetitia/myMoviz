@@ -49,10 +49,10 @@ function App() {
   }
 
   const myWishList = wishList.map( function (movie, i) {
-    return <ListGroupItem movieName={movie.title} movieImg={movie.title}>
+    return <ListGroupItem className='p-1'>
           <Media>
             <Media left href="#">
-              <Media object src={movie.image} alt={movie.title} style={{width:'60px', marginRight:'5px'}} />
+              <Media object src={movie.image} alt={movie.title} style={{width:'60px', marginRight:'0.8em'}} />
             </Media>
             <Media body>
             {movie.title}
