@@ -48,10 +48,14 @@ function App() {
     setWishList(wishList.filter( (e) => (e !== movie)))
   }
 
+  var deleteFromWl = (movie) => {
+    setWishList(wishList.filter( (e) => (e.title !== movie)))
+  }
+
   const myWishList = wishList.map( function (movie, i) {
     return <ListGroupItem className='p-1'>
           <Media>
-            <Media left href="#">
+            <Media left href="#" onClick={ () => deleteFromWl(movie.title) }>
               <Media object src={movie.image} alt={movie.title} style={{width:'60px', marginRight:'0.8em'}} />
             </Media>
             <Media body>
@@ -70,7 +74,6 @@ function App() {
   return (
     
    <div>
-     {/* <p className="text-white">{wishList}</p> */}
      <Container className="mb-4">
       <Navigation myWishList={myWishList} numberOfMovies={numberWish} />
      </Container>
