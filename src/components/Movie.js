@@ -24,12 +24,12 @@ const Movies = (props) => {
     ... genericStyle,
   }
 
-  // Like btn
+  // Like btn -> Like & add to/delete from wishlist
   const [like, setLike] = useState(false)
   var clickLike = () => {
     if (like === false) {
       setLike(true)
-      props.handleClickAddMovieParent(props.movieName)
+      props.handleClickAddMovieParent(props.movieName, props.movieImg)
     } else {
       setLike(false)
       props.handleClickDeleteMovieParent(props.movieName)

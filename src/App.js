@@ -3,7 +3,7 @@ import './App.css'
 import { Navigation } from './components/Nav'
 import {Movies} from './components/Movie'
 
-import { Container, Row, ListGroupItem } from 'reactstrap';
+import { Container, Row, ListGroupItem, Media } from 'reactstrap';
 
 
 function App() {
@@ -40,17 +40,28 @@ function App() {
   // Whishlist
   const [wishList, setWishList] = useState([])
 
-  var handleClickAddMovie = (movie) => {
-      setWishList([...wishList, movie])
+  var handleClickAddMovie = (title, image) => {
+    console.log(title, image)
+      setWishList([...wishList, {title, image}])
   }
   var handleClickDeleteMovie = (movie) => {
     setWishList(wishList.filter( (e) => (e !== movie)))
   }
 
   const myWishList = wishList.map( function (movie, i) {
-    return <ListGroupItem movieName={movie}>{movie}</ListGroupItem>
+    return <ListGroupItem movieName={movie.title} movieImg={movie.title}>
+          <Media>
+            <Media left href="#">
+              <Media object src={movie.image} alt={movie.title} style={{width:'60px', marginRight:'5px'}} />
+            </Media>
+            <Media body>
+            {movie.title}
+            </Media>
+          </Media>
+      </ListGroupItem>
   })
 
+  // boucle de mes films
   const movieList = moviesData.map(function(movie, i) {
     return <Movies key={i} movieName={movie.name} movieDesc={movie.desc} movieImg={movie.img} globalRating={movie.note} globalCountRating={movie.vote} handleClickAddMovieParent={handleClickAddMovie} handleClickDeleteMovieParent={handleClickDeleteMovie} />
   })
@@ -59,7 +70,7 @@ function App() {
   return (
     
    <div>
-     <p className="text-white">{wishList}</p>
+     {/* <p className="text-white">{wishList}</p> */}
      <Container className="mb-4">
       <Navigation myWishList={myWishList} numberOfMovies={numberWish} />
      </Container>
